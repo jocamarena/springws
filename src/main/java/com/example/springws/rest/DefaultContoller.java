@@ -18,7 +18,7 @@ public class DefaultContoller {
     }
     @GetMapping("/hello/{name}")
     public ResponseEntity<String> helloName(@PathVariable String name){
-        return ResponseEntity.ok("Hello " + name + "!");
+        return ResponseEntity.ok(String.format("Hello %s!", name));
     }
     @GetMapping("/user/default")
     public ResponseEntity<User> defaultUser(){
