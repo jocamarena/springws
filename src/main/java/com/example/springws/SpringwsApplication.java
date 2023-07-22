@@ -4,6 +4,7 @@ import org.bouncycastle.asn1.x509.AlgorithmIdentifier;
 import org.bouncycastle.asn1.x509.DigestInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -13,9 +14,10 @@ import org.springframework.context.annotation.Bean;
 import java.io.FileInputStream;
 import java.security.*;
 
-@SpringBootApplication(scanBasePackages = {"stubs", "com.example.springws", "com.example.springws.domain"})
+@SpringBootApplication(scanBasePackages = {"stubs", "com.example.springws"})
 @EntityScan(basePackages = {"stubs"})
 public class SpringwsApplication {
+	@Value("${server.port}") String propertyServerPort;
 	private Logger logger = LoggerFactory.getLogger(SpringwsApplication.class);
 	public static void main(String[] args) {
 		SpringApplication.run(SpringwsApplication.class, args);
@@ -33,6 +35,8 @@ public class SpringwsApplication {
 			sign.update(bytes);
 			byte[] signature = sign.sign();
 			logger.info("Signature: " + new String(signature));
+
+			logger.info("propertyServerPort: " + propertyServerPort);
 		};
 	}
 
